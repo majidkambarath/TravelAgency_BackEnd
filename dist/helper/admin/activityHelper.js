@@ -12,19 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-mongoose_1.default.set('strictQuery', false);
-const mongodb = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield mongoose_1.default.connect(`mongodb+srv://majidkambarth:${process.env.MONGOOES_PASS}@cluster0.7anwm9d.mongodb.net/TravelAgency?retryWrites=true&w=majority`).then(() => {
-            console.log("connection successful");
-        }).catch((error) => {
-            console.log("no connected");
+exports.fetchingHelper = exports.activityHelper = void 0;
+const activityModel_1 = __importDefault(require("../../model/activityModel"));
+exports.activityHelper = {
+    activityCreate: (data) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const activtiyManage = new activityModel_1.default({ activtiy: data });
+            yield activtiyManage.save();
+            return activtiyManage;
+        }
+        catch (error) {
             console.log(error);
-        });
-    }
-    catch (error) {
-        console.log(error);
-    }
-});
-exports.default = mongodb;
+        }
+    })
+};
+exports.fetchingHelper = {
+    fetchingApi: () => __awaiter(void 0, void 0, void 0, function* () {
+        const fetchingData = yield activityModel_1.default.find();
+        return fetchingData;
+    })
+};

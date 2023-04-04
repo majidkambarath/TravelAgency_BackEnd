@@ -8,23 +8,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-mongoose_1.default.set('strictQuery', false);
-const mongodb = () => __awaiter(void 0, void 0, void 0, function* () {
+exports.fetchingActivity = exports.activtiyManage = void 0;
+const activityHelper_1 = require("../../helper/admin/activityHelper");
+const activtiyManage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield mongoose_1.default.connect(`mongodb+srv://majidkambarth:${process.env.MONGOOES_PASS}@cluster0.7anwm9d.mongodb.net/TravelAgency?retryWrites=true&w=majority`).then(() => {
-            console.log("connection successful");
-        }).catch((error) => {
-            console.log("no connected");
-            console.log(error);
-        });
+        const { data } = (req.body);
+        yield activityHelper_1.activityHelper.activityCreate(data);
+        res.json({ success: true }).status(200);
     }
     catch (error) {
         console.log(error);
     }
 });
-exports.default = mongodb;
+exports.activtiyManage = activtiyManage;
+const fetchingActivity = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const fetch = yield activityHelper_1.fetchingHelper.fetchingApi();
+        res.json({ success: true, fetch }).status(200);
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.fetchingActivity = fetchingActivity;

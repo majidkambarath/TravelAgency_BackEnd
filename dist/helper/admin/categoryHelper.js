@@ -12,19 +12,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-mongoose_1.default.set('strictQuery', false);
-const mongodb = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield mongoose_1.default.connect(`mongodb+srv://majidkambarth:${process.env.MONGOOES_PASS}@cluster0.7anwm9d.mongodb.net/TravelAgency?retryWrites=true&w=majority`).then(() => {
-            console.log("connection successful");
-        }).catch((error) => {
-            console.log("no connected");
+exports.fetchHelper = exports.categoryHelper = void 0;
+const categoryModel_1 = __importDefault(require("../../model/categoryModel"));
+exports.categoryHelper = {
+    categoryCreate: (data) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const categoryCreate = new categoryModel_1.default({ packageCategory: data });
+            yield categoryCreate.save();
+            return categoryCreate;
+        }
+        catch (error) {
             console.log(error);
-        });
-    }
-    catch (error) {
-        console.log(error);
-    }
-});
-exports.default = mongodb;
+        }
+    }),
+};
+exports.fetchHelper = {
+    fetchCreate: () => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const categoryFetch = yield categoryModel_1.default.find();
+            return categoryFetch;
+        }
+        catch (error) {
+            console.log(error);
+        }
+    })
+};

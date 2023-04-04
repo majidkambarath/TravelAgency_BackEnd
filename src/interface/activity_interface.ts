@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
-export interface categoryInterface{
+export interface activityInterface{
     _id:mongoose.Types.ObjectId,
-    packageCategory? : string,
+    activtiy?:string,
  
 }

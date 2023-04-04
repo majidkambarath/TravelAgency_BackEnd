@@ -9,13 +9,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.category_manage = void 0;
+exports.fetchingData = exports.category_manage = void 0;
+const categoryHelper_1 = require("../../helper/admin/categoryHelper");
 const category_manage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(req.body);
+        const { data } = req.body;
+        yield categoryHelper_1.categoryHelper.categoryCreate(data).then(() => {
+            res.status(200).json({ success: true });
+        });
     }
     catch (error) {
         console.log(error);
     }
 });
 exports.category_manage = category_manage;
+const fetchingData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const fetch = yield categoryHelper_1.fetchHelper.fetchCreate();
+        res.json({ success: true, fetch }).status(200);
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.fetchingData = fetchingData;

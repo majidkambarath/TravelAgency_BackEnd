@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const categorySchema = new mongoose_1.default.Schema({
-    packageCategory: {
+const activitySchema = new mongoose_1.default.Schema({
+    activtiy: {
         type: String
     }
 });
-exports.default = mongoose_1.default.model('Packagecategory', categorySchema);
+exports.default = mongoose_1.default.model('Packageactivity', activitySchema);

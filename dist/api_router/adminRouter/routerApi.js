@@ -1,7 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const activtityManage_1 = require("../../controllers/adminController/activtityManage");
 const categoryManage_1 = require("../../controllers/adminController/categoryManage");
 const router = (0, express_1.Router)();
-router.post('/admin/category', categoryManage_1.category_manage);
+router.post("/category", categoryManage_1.category_manage);
+router.get("/getCategory", categoryManage_1.fetchingData);
+router.post('/activity', activtityManage_1.activtiyManage);
+router.get('/getActivity', activtityManage_1.fetchingActivity);
 exports.default = router;
