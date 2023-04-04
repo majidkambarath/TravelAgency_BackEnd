@@ -8,7 +8,7 @@
     "dev": "concurrently \"npx tsc --w\" \"nodemon  dist/server.js\""
   },
   "keywords": [],
-  "author": "",
+  "author": "MajidKambarath",
   "license": "ISC",
   "devDependencies": {
     "@types/cors": "^2.8.13",
@@ -20,11 +20,14 @@
     "typescript": "^5.0.2"
   },
   "dependencies": {
+    "cloudinary": "^1.35.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
-    "mongoose": "^7.0.3"
+    "mongoose": "^7.0.3",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0"
   }
 }
