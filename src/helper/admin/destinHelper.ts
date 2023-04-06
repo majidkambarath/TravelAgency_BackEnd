@@ -42,7 +42,7 @@ export const createCollection = {
                 title:data.title,
                 descrption:data.descrption,
                 price:prePrice,
-                file:data.path,
+               file:data.imgArray,
                 packageCategory:data.packageID,
                 activity:data.activityID,
                 priceCategory:data.priceCategory,

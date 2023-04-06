@@ -12,10 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.add_destina = void 0;
 const destinHelper_1 = require("../../helper/admin/destinHelper");
 const add_destina = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     try {
         let { title, descrption, price, packageCategory, activity, priceCategory, day, night, Hotels, Flight, Sightseeing, Meals, Transfers, } = req.body;
-        const path = (_a = req.file) === null || _a === void 0 ? void 0 : _a.path;
+        const imgArray = [];
+        const multiImg = req.files;
+        multiImg.map((el) => {
+            const em = el.path;
+            imgArray.push(em);
+        });
         const packageID = yield destinHelper_1.packageIdFetch.packageId(packageCategory);
         const activityID = yield destinHelper_1.activityIdFetch.activityId(activity);
         const data = {
@@ -32,7 +36,7 @@ const add_destina = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             Transfers,
             activityID,
             packageID,
-            path,
+            imgArray
         };
         const createCollections = yield destinHelper_1.createCollection.destinCollection(data);
         res.json({ success: true }).status(200);

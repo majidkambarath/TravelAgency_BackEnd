@@ -14,9 +14,7 @@ const destinSchema = new mongoose_1.default.Schema({
     price: {
         type: Number
     },
-    file: {
-        type: String
-    },
+    file: [String],
     packageCategory: {
         type: mongoose_1.default.Types.ObjectId,
         ref: 'Packagecategory'

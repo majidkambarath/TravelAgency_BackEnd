@@ -1,4 +1,6 @@
+import { File } from "buffer";
 import { RequestHandler } from "express";
+
 import {
   packageIdFetch,
   activityIdFetch,
@@ -22,7 +24,13 @@ export const add_destina: RequestHandler = async (req, res) => {
       Meals,
       Transfers,
     } = req.body;
-    const path = req.file?.path;
+  const imgArray:string[] = []
+  const multiImg:any = req.files
+  multiImg.map((el:any)=>{
+     const em = el.path
+      imgArray.push(em)
+  }) 
+
     const packageID = await packageIdFetch.packageId(packageCategory);
     const activityID = await activityIdFetch.activityId(activity);
     const data = {
@@ -39,7 +47,7 @@ export const add_destina: RequestHandler = async (req, res) => {
       Transfers,
       activityID,
       packageID,
-      path,
+      imgArray
     };
     const createCollections = await createCollection.destinCollection(data)
         res.json({success:true}).status(200)

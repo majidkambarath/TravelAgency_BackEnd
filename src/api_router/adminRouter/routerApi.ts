@@ -9,5 +9,5 @@ router.post("/category", category_manage);
 router.get("/getCategory", fetchingData);
 router.post('/activity',activtiyManage)
 router.get('/getActivity',fetchingActivity)
-router.post('/add_destin',uploadCloudinary.single('file'),add_destina)
+router.post('/add_destin',uploadCloudinary.array('file'),add_destina)
 export default router;
