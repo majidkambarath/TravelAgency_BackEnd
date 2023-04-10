@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.add_destina = void 0;
+exports.fetchDestin = exports.add_destina = void 0;
 const destinHelper_1 = require("../../helper/admin/destinHelper");
 const add_destina = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -46,3 +46,13 @@ const add_destina = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.add_destina = add_destina;
+const fetchDestin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const fetch = yield destinHelper_1.fetchHelper.destinData();
+        res.json({ success: true, fetch }).status(200);
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.fetchDestin = fetchDestin;

@@ -8,6 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const connaction_1 = __importDefault(require("./config/connaction"));
 const cors_1 = __importDefault(require("cors"));
 const routerApi_1 = __importDefault(require("./api_router/adminRouter/routerApi"));
+const routerApi_2 = __importDefault(require("./api_router/userRouter/routerApi"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
@@ -21,6 +22,7 @@ app.use((0, cors_1.default)({
 }));
 //database connecting
 (0, connaction_1.default)();
+app.use('/', routerApi_2.default);
 app.use("/admin", routerApi_1.default);
 app.listen(port, () => {
     console.log("server running !!!!!");

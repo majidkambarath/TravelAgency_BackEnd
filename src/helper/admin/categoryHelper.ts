@@ -1,11 +1,12 @@
 import categoryModel from "../../model/categoryModel";
 import { categoryInterface } from "../../interface/category_interface";
 export const categoryHelper = {
-  categoryCreate: async (
-    data: string
-  ): Promise<categoryInterface | undefined> => {
+  categoryCreate: async (data: any): Promise<any> => {
     try {
-      const categoryCreate = new categoryModel({ packageCategory: data });
+      const categoryCreate = new categoryModel({
+        packageCategory: data.packageCategory,
+        file: data.path,
+      });
       await categoryCreate.save();
       return categoryCreate;
     } catch (error) {
@@ -14,13 +15,12 @@ export const categoryHelper = {
   },
 };
 export const fetchHelper = {
-    fetchCreate: async():Promise<string[]|any>=>{
-      try {
-        const categoryFetch = await categoryModel.find()
-        return categoryFetch
-      } catch (error) {
-        console.log(error);
-        
-      }
-    } 
-}
+  fetchCreate: async (): Promise<string[] | any> => {
+    try {
+      const categoryFetch = await categoryModel.find();
+      return categoryFetch;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+};

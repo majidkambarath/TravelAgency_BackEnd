@@ -5,6 +5,7 @@ import {
   packageIdFetch,
   activityIdFetch,
   createCollection,
+  fetchHelper,
 } from "../../helper/admin/destinHelper";
 
 export const add_destina: RequestHandler = async (req, res) => {
@@ -59,3 +60,13 @@ export const add_destina: RequestHandler = async (req, res) => {
     console.log(error);
   }
 };
+
+export const fetchDestin :RequestHandler = async(req,res)=>{
+   try {
+    const fetch = await fetchHelper.destinData()
+    res.json({success:true,fetch}).status(200)
+   } catch (error) {
+    console.log(error);
+    
+   }
+}

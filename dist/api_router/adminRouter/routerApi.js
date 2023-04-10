@@ -9,9 +9,10 @@ const categoryManage_1 = require("../../controllers/adminController/categoryMana
 const destin_manage_1 = require("../../controllers/adminController/destin_manage");
 const uploadCloudinary_1 = __importDefault(require("../../utils/uploadCloudinary"));
 const router = (0, express_1.Router)();
-router.post("/category", categoryManage_1.category_manage);
+router.post("/category", uploadCloudinary_1.default.single('file'), categoryManage_1.category_manage);
 router.get("/getCategory", categoryManage_1.fetchingData);
 router.post('/activity', activtityManage_1.activtiyManage);
 router.get('/getActivity', activtityManage_1.fetchingActivity);
 router.post('/add_destin', uploadCloudinary_1.default.array('file'), destin_manage_1.add_destina);
+router.get('/getDestin', destin_manage_1.fetchDestin);
 exports.default = router;

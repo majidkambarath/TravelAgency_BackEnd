@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createCollection = exports.activityIdFetch = exports.packageIdFetch = void 0;
+exports.fetchHelper = exports.createCollection = exports.activityIdFetch = exports.packageIdFetch = void 0;
 const activityModel_1 = __importDefault(require("../../model/activityModel"));
 const categoryModel_1 = __importDefault(require("../../model/categoryModel"));
 const destinModel_1 = __importDefault(require("../../model/destinModel"));
@@ -68,6 +68,17 @@ exports.createCollection = {
             });
             yield destinCreation.save();
             return destinCreation;
+        }
+        catch (error) {
+            console.log(error);
+        }
+    })
+};
+exports.fetchHelper = {
+    destinData: () => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const fetchData = yield destinModel_1.default.find();
+            return fetchData;
         }
         catch (error) {
             console.log(error);

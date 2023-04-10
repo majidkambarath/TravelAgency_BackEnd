@@ -68,3 +68,15 @@ export const createCollection = {
         
     }
 }
+
+export const fetchHelper ={
+   destinData:async():Promise<string[]|any>=>{
+     try {
+        const fetchData = await destinModel.find()
+        return fetchData
+     } catch (error) {
+        console.log(error);
+        
+     }
+   }
+}

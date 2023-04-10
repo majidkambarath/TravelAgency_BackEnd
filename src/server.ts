@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongodb from "./config/connaction";
 import cors from "cors";
 import adminRouter from "./api_router/adminRouter/routerApi";
+import useRouter from './api_router/userRouter/routerApi'
 dotenv.config();
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(cors({
 //database connecting
 mongodb();
 
+app.use('/',useRouter)
 app.use("/admin", adminRouter);
 app.listen(port, () => {
   console.log("server running !!!!!");

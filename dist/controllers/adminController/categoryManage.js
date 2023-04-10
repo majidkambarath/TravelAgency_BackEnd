@@ -13,7 +13,14 @@ exports.fetchingData = exports.category_manage = void 0;
 const categoryHelper_1 = require("../../helper/admin/categoryHelper");
 const category_manage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { data } = req.body;
+        const { packageCategory } = req.body;
+        const Image = req.file;
+        const path = Image === null || Image === void 0 ? void 0 : Image.path;
+        console.log(path);
+        const data = {
+            packageCategory,
+            path
+        };
         yield categoryHelper_1.categoryHelper.categoryCreate(data).then(() => {
             res.status(200).json({ success: true });
         });
@@ -26,6 +33,7 @@ exports.category_manage = category_manage;
 const fetchingData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const fetch = yield categoryHelper_1.fetchHelper.fetchCreate();
+        console.log(fetch);
         res.json({ success: true, fetch }).status(200);
     }
     catch (error) {
