@@ -24,6 +24,7 @@ export const add_destina: RequestHandler = async (req, res) => {
       Sightseeing,
       Meals,
       Transfers,
+      Highlights
     } = req.body;
   const imgArray:string[] = []
   const multiImg:any = req.files
@@ -31,7 +32,11 @@ export const add_destina: RequestHandler = async (req, res) => {
      const em = el.path
       imgArray.push(em)
   }) 
-
+  console.log(req.body);
+  let {Included1,Included2,Included3,Included4,Included5}=req.body
+  const Included = [Included1,Included2,Included3,Included4,Included5]
+  let {Excluded1,Excluded2,Excluded3,Excluded4,Excluded5}=req.body
+  const Excluded = [Excluded1,Excluded2,Excluded3,Excluded4,Excluded5]
     const packageID = await packageIdFetch.packageId(packageCategory);
     const activityID = await activityIdFetch.activityId(activity);
     const data = {
@@ -48,7 +53,10 @@ export const add_destina: RequestHandler = async (req, res) => {
       Transfers,
       activityID,
       packageID,
-      imgArray
+      imgArray,
+      Included,
+      Excluded,
+      Highlights
     };
     const createCollections = await createCollection.destinCollection(data)
         res.json({success:true}).status(200)

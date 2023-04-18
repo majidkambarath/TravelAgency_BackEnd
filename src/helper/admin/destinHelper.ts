@@ -41,8 +41,11 @@ export const createCollection = {
             const destinCreation = new destinModel({
                 title:data.title,
                 descrption:data.descrption,
+                Highlights:data.Highlights,
                 price:prePrice,
                file:data.imgArray,
+               Included:data.Included,
+               Excluded:data.Excluded,
                 packageCategory:data.packageID,
                 activity:data.activityID,
                 priceCategory:data.priceCategory,

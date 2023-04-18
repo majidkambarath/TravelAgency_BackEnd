@@ -33,7 +33,7 @@ exports.category_manage = category_manage;
 const fetchingData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const fetch = yield categoryHelper_1.fetchHelper.fetchCreate();
-        console.log(fetch);
+        // console.log(fetch);
         res.json({ success: true, fetch }).status(200);
     }
     catch (error) {

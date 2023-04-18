@@ -7,10 +7,15 @@ const destinSchema = new mongoose.Schema<destinaInterface>({
     descrption:{
         type:String
     },
+    Highlights:{
+        type:String
+    },
    price:{
     type:Number
    },
    file:[String],
+   Included:[String],
+   Excluded:[String],
    packageCategory:{
     type:mongoose.Types.ObjectId,
     ref:'Packagecategory'

@@ -3,11 +3,14 @@ export interface destinaInterface {
   _id: mongoose.Types.ObjectId;
   title: string;
   descrption: string;
+  Highlights:string;
   price: number;
   file:string[];
   packageCategory: ObjectId;
   activity: ObjectId;
   priceCategory: string;
+  Included:string[]
+  Excluded:string[]
   duration: {
     day: number;
     night: number;

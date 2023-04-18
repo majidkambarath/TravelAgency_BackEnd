@@ -25,7 +25,7 @@ export const category_manage = async (req: Request, res: Response) => {
 export const fetchingData = async(req:Request,res:Response)=>{
     try {
         const fetch = await fetchHelper.fetchCreate()
-        console.log(fetch);
+        // console.log(fetch);
         
          res.json({success:true,fetch}).status(200)
     } catch (error) {

@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const destination_1 = require("../../controllers/userController/destination");
+const authController_1 = require("../../controllers/userController/authController");
 const router = (0, express_1.Router)();
 router.patch('/package_cate', destination_1.packageCategory);
+router.get('/destinationView', destination_1.destinViewData);
+router.post('/formSignup', authController_1.authSignup);
 exports.default = router;

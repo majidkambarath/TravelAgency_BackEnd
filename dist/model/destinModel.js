@@ -11,10 +11,15 @@ const destinSchema = new mongoose_1.default.Schema({
     descrption: {
         type: String
     },
+    Highlights: {
+        type: String
+    },
     price: {
         type: Number
     },
     file: [String],
+    Included: [String],
+    Excluded: [String],
     packageCategory: {
         type: mongoose_1.default.Types.ObjectId,
         ref: 'Packagecategory'

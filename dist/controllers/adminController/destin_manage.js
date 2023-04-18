@@ -13,13 +13,18 @@ exports.fetchDestin = exports.add_destina = void 0;
 const destinHelper_1 = require("../../helper/admin/destinHelper");
 const add_destina = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let { title, descrption, price, packageCategory, activity, priceCategory, day, night, Hotels, Flight, Sightseeing, Meals, Transfers, } = req.body;
+        let { title, descrption, price, packageCategory, activity, priceCategory, day, night, Hotels, Flight, Sightseeing, Meals, Transfers, Highlights } = req.body;
         const imgArray = [];
         const multiImg = req.files;
         multiImg.map((el) => {
             const em = el.path;
             imgArray.push(em);
         });
+        console.log(req.body);
+        let { Included1, Included2, Included3, Included4, Included5 } = req.body;
+        const Included = [Included1, Included2, Included3, Included4, Included5];
+        let { Excluded1, Excluded2, Excluded3, Excluded4, Excluded5 } = req.body;
+        const Excluded = [Excluded1, Excluded2, Excluded3, Excluded4, Excluded5];
         const packageID = yield destinHelper_1.packageIdFetch.packageId(packageCategory);
         const activityID = yield destinHelper_1.activityIdFetch.activityId(activity);
         const data = {
@@ -36,7 +41,10 @@ const add_destina = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             Transfers,
             activityID,
             packageID,
-            imgArray
+            imgArray,
+            Included,
+            Excluded,
+            Highlights
         };
         const createCollections = yield destinHelper_1.createCollection.destinCollection(data);
         res.json({ success: true }).status(200);
