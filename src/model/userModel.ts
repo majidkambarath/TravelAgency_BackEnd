@@ -6,6 +6,7 @@ interface IUser extends Document {
   email: string;
   phone:number;
   password: string;
+  profile:string
 
 }
 
@@ -17,16 +18,17 @@ const UserSchema: Schema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+   
   },
   phone:{
     type:Number,
-    required:true,
     unique:true
   },
   password: {
     type: String,
-    required: true
+  },
+  profile:{
+    type: String
   }
 });
 
