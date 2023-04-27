@@ -17,6 +17,9 @@ const destinSchema = new mongoose_1.default.Schema({
     price: {
         type: Number
     },
+    guests: {
+        type: Number
+    },
     file: [String],
     Included: [String],
     Excluded: [String],

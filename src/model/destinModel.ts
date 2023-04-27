@@ -13,6 +13,9 @@ const destinSchema = new mongoose.Schema<destinaInterface>({
    price:{
     type:Number
    },
+   guests:{
+    type:Number
+   },
    file:[String],
    Included:[String],
    Excluded:[String],

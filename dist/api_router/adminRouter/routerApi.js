@@ -15,4 +15,6 @@ router.post('/activity', activtityManage_1.activtiyManage);
 router.get('/getActivity', activtityManage_1.fetchingActivity);
 router.post('/add_destin', uploadCloudinary_1.default.array('file'), destin_manage_1.add_destina);
 router.get('/getDestin', destin_manage_1.fetchDestin);
+router.get('/edit_IDFetch', destin_manage_1.edit_Collection);
+router.post('/edit_Destin', uploadCloudinary_1.default.array('file'), destin_manage_1.updateCollection);
 exports.default = router;

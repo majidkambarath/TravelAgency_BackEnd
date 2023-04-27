@@ -3,6 +3,7 @@ import { RequestHandler } from "express";
 import { fetchPackage } from "../../helper/user/packageCateHelper";
 import { destinViewHelper } from "../../helper/user/destinViewHelper";
 import { activityIdfetch, packageIdfetch } from "../../helper/user/fetchID";
+import { fillerHelper } from "../../helper/user/fillterHelper";
 
 export const packageCategory: RequestHandler = async (req, res) => {
   try {
@@ -40,3 +41,18 @@ export const destinViewData: RequestHandler = async (req, res) => {
     console.log(error);
   }
 };
+export const fillterContorl : RequestHandler= async(req,res)=>{
+  try {
+   let activity = req.query.activity as string;
+   let title = req.query.descrption as string;
+   let guests = req.query.guests as string;
+   let priceCategory = req.query.priceCategory as string;
+ 
+ const fillterData = await fillerHelper(title,activity,guests,priceCategory)
+ res.json({ success: true, fillterData }).status(200);
+     
+  } catch (error) {
+    console.log(error);
+    
+  }
+}

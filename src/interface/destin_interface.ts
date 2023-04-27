@@ -5,6 +5,7 @@ export interface destinaInterface {
   descrption: string;
   Highlights:string;
   price: number;
+  guests:number;
   file:string[];
   packageCategory: ObjectId;
   activity: ObjectId;

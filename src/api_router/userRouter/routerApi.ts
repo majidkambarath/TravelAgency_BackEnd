@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {packageCategory,destinViewData } from "../../controllers/userController/destination";
+import {packageCategory,destinViewData,fillterContorl } from "../../controllers/userController/destination";
 import {authSignup,otpVerifiyy,authLoginApi} from '../../controllers/userController/authController'
 import {authenticateUser} from '../../controllers/userController/authGoogleSignup'
 const router = Router();
@@ -10,5 +10,6 @@ router.post('/formSignup',authSignup)
 router.post('/otpVerifiy',otpVerifiyy)
 router.post('/authLogin',authLoginApi)
 router.post('/googleSign',authenticateUser)
+router.get('/fillterPackage',fillterContorl)
 export default router;
  

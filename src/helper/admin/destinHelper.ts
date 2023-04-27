@@ -36,6 +36,7 @@ export const createCollection = {
     destinCollection:async(data:any):Promise<any>=>{
         try {
             let prePrice = +data.price
+            let preguests = +data.guests
             let preDay = +data.day
             let preNight = +data.night
             const destinCreation = new destinModel({
@@ -43,6 +44,7 @@ export const createCollection = {
                 descrption:data.descrption,
                 Highlights:data.Highlights,
                 price:prePrice,
+                guests:preguests,
                file:data.imgArray,
                Included:data.Included,
                Excluded:data.Excluded,
@@ -82,4 +84,67 @@ export const fetchHelper ={
         
      }
    }
+}
+
+export const  editCollectionHelper = async(Id:string):Promise<any>=>{
+  try {
+     const Destina = await destinModel.findOne({_id:Id});
+    
+     return Destina
+
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+export const updateCollectionHelper = async(data:any):Promise<any> =>{
+    try {
+        const checkImage = data.imgArray
+        let update;
+        if(checkImage.length!=0){
+            update = {
+               title:data.title,
+               descrption:data.descrptionn,
+               price:data.price,
+               guests:data.guests,
+               priceCategory:data.priceCategory,
+               duration:{
+                   day:+data.day,
+                night:+data.night
+               },
+               packageCategory:data.packageCategory,
+               activity:data.activity,
+               file:data.imgArray,
+               Included:data.Included,
+               Excluded:data.Excluded,
+               Highlights:data.Highlights
+            }
+        }else{
+             update = {
+                title:data.title,
+                descrption:data.descrptionn,
+                price:data.price,
+                guests:data.guests,
+                priceCategory:data.priceCategory,
+                duration:{
+                    day:+data.day,
+                 night:+data.night
+                },
+                packageCategory:data.packageCategory,
+                activity:data.activity,
+                Included:data.Included,
+                Excluded:data.Excluded,
+                Highlights:data.Highlights
+             }
+        }
+         const id = data.Id
+         const updateData = await destinModel.findByIdAndUpdate(id, update, { new: true }).exec();
+         console.log(updateData);
+         return updateData
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
 }

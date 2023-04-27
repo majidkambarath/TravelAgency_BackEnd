@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchHelper = exports.createCollection = exports.activityIdFetch = exports.packageIdFetch = void 0;
+exports.updateCollectionHelper = exports.editCollectionHelper = exports.fetchHelper = exports.createCollection = exports.activityIdFetch = exports.packageIdFetch = void 0;
 const activityModel_1 = __importDefault(require("../../model/activityModel"));
 const categoryModel_1 = __importDefault(require("../../model/categoryModel"));
 const destinModel_1 = __importDefault(require("../../model/destinModel"));
@@ -44,6 +44,7 @@ exports.createCollection = {
     destinCollection: (data) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             let prePrice = +data.price;
+            let preguests = +data.guests;
             let preDay = +data.day;
             let preNight = +data.night;
             const destinCreation = new destinModel_1.default({
@@ -51,6 +52,7 @@ exports.createCollection = {
                 descrption: data.descrption,
                 Highlights: data.Highlights,
                 price: prePrice,
+                guests: preguests,
                 file: data.imgArray,
                 Included: data.Included,
                 Excluded: data.Excluded,
@@ -88,3 +90,64 @@ exports.fetchHelper = {
         }
     })
 };
+const editCollectionHelper = (Id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const Destina = yield destinModel_1.default.findOne({ _id: Id });
+        return Destina;
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.editCollectionHelper = editCollectionHelper;
+const updateCollectionHelper = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const checkImage = data.imgArray;
+        let update;
+        if (checkImage.length != 0) {
+            update = {
+                title: data.title,
+                descrption: data.descrptionn,
+                price: data.price,
+                guests: data.guests,
+                priceCategory: data.priceCategory,
+                duration: {
+                    day: +data.day,
+                    night: +data.night
+                },
+                packageCategory: data.packageCategory,
+                activity: data.activity,
+                file: data.imgArray,
+                Included: data.Included,
+                Excluded: data.Excluded,
+                Highlights: data.Highlights
+            };
+        }
+        else {
+            update = {
+                title: data.title,
+                descrption: data.descrptionn,
+                price: data.price,
+                guests: data.guests,
+                priceCategory: data.priceCategory,
+                duration: {
+                    day: +data.day,
+                    night: +data.night
+                },
+                packageCategory: data.packageCategory,
+                activity: data.activity,
+                Included: data.Included,
+                Excluded: data.Excluded,
+                Highlights: data.Highlights
+            };
+        }
+        const id = data.Id;
+        const updateData = yield destinModel_1.default.findByIdAndUpdate(id, update, { new: true }).exec();
+        console.log(updateData);
+        return updateData;
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.updateCollectionHelper = updateCollectionHelper;

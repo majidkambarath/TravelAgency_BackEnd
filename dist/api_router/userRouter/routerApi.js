@@ -11,4 +11,5 @@ router.post('/formSignup', authController_1.authSignup);
 router.post('/otpVerifiy', authController_1.otpVerifiyy);
 router.post('/authLogin', authController_1.authLoginApi);
 router.post('/googleSign', authGoogleSignup_1.authenticateUser);
+router.get('/fillterPackage', destination_1.fillterContorl);
 exports.default = router;
