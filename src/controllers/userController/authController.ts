@@ -4,7 +4,7 @@ import { IUser } from "../../model/userModel";
 import bcrypt from 'bcrypt'
 import {userCollection,authLoginHelper} from '../../helper/user/authHelper'
 import {sendVerificationToken,checkVerificationToken} from '../../config/twilio'
-
+import { createToken } from "../../utils/JWT_generator";
 const hashPassword = async(password:string)=>{
     try {
         const hash = await bcrypt.hash(password,10)
@@ -78,7 +78,12 @@ export const authLoginApi : RequestHandler = async(req,res)=>{
                 encryptPassword
             );
             if(matchPassword){
-                res.status(200).json({ success: true})
+            const token = createToken(userData._id)
+                res.status(200).json({
+                     success: true,
+                     token,
+                    userData
+                    })
             }else{
                 res.status(200).json({ success: false})
             }

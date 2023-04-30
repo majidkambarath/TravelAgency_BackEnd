@@ -1,5 +1,5 @@
 import destinModel from "../../model/destinModel";
-import { RequestHandler } from "express";
+import { RequestHandler,Request } from "express";
 import { fetchPackage } from "../../helper/user/packageCateHelper";
 import { destinViewHelper } from "../../helper/user/destinViewHelper";
 import { activityIdfetch, packageIdfetch } from "../../helper/user/fetchID";
@@ -16,25 +16,28 @@ export const packageCategory: RequestHandler = async (req, res) => {
     console.log(error);
   }
 };
-
-export const destinViewData: RequestHandler = async (req, res) => {
+interface RequestWithUser extends Request {
+  Token?: any;
+}
+export const destinViewData: RequestHandler = async (req:RequestWithUser, res) => {
   try {
-    const id: any = req.query.id;
-    console.log(id);
-    const fetch = await destinViewHelper.destinViewApi(id);
-    console.log(fetch);
+    const id = req.query.id as string
 
-    const packageID = fetch?.packageCategory;
-    const activityID = fetch?.activity;
+    console.log(req.Token);
+    
+    const fetch = await destinViewHelper.destinViewApi(id);
+    
+    const packageID = await fetch.packageCategory;
+    console.log(packageID);
+    
+    const activityID = await fetch.activity;
     const packageCategoryID = await packageIdfetch.packageApi(packageID);
     const activityDataID = await activityIdfetch.activityApi(activityID);
 
-    console.log(activityDataID);
-    const packageCategory = packageCategoryID.packageCategory;
-    console.log(packageCategory);
 
+    const packageCategory = packageCategoryID.packageCategory;
     const activities = activityDataID.activtiy;
-    console.log(activities);
+
 
     res.json({ success: true, fetch, packageCategory, activities }).status(200);
   } catch (error) {

@@ -17,6 +17,7 @@ const auth_schema_1 = require("../../validation/auth_schema");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const authHelper_1 = require("../../helper/user/authHelper");
 const twilio_1 = require("../../config/twilio");
+const JWT_generator_1 = require("../../utils/JWT_generator");
 const hashPassword = (password) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const hash = yield bcrypt_1.default.hash(password, 10);
@@ -82,7 +83,12 @@ const authLoginApi = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             const encryptPassword = userData.password;
             const matchPassword = yield bcrypt_1.default.compare(password, encryptPassword);
             if (matchPassword) {
-                res.status(200).json({ success: true });
+                const token = (0, JWT_generator_1.createToken)(userData._id);
+                res.status(200).json({
+                    success: true,
+                    token,
+                    userData
+                });
             }
             else {
                 res.status(200).json({ success: false });

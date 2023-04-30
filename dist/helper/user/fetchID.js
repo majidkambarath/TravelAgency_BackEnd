@@ -15,10 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.activityIdfetch = exports.packageIdfetch = void 0;
 const categoryModel_1 = __importDefault(require("../../model/categoryModel"));
 const activityModel_1 = __importDefault(require("../../model/activityModel"));
+const mongoose_1 = __importDefault(require("mongoose"));
 exports.packageIdfetch = {
     packageApi: (id) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const packageCatefetch = yield categoryModel_1.default.findById({ _id: id });
+            const ID = new mongoose_1.default.Types.ObjectId(id);
+            const packageCatefetch = yield categoryModel_1.default.findById({ _id: ID });
             return packageCatefetch;
         }
         catch (error) {
@@ -29,7 +31,8 @@ exports.packageIdfetch = {
 exports.activityIdfetch = {
     activityApi: (id) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const activtityfetch = yield activityModel_1.default.findById({ _id: id });
+            const ID = new mongoose_1.default.Types.ObjectId(id);
+            const activtityfetch = yield activityModel_1.default.findById({ _id: ID });
             return activtityfetch;
         }
         catch (error) {

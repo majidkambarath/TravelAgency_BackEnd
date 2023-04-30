@@ -17,6 +17,9 @@ const destinModel_1 = __importDefault(require("../../model/destinModel"));
 exports.destinViewHelper = {
     destinViewApi: (id) => __awaiter(void 0, void 0, void 0, function* () {
         try {
+            // console.log(id);
+            //  const ID = new ObjectId(id)
+            // console.log(ID);
             const destinview = yield destinModel_1.default.findById({ _id: id });
             return destinview;
         }

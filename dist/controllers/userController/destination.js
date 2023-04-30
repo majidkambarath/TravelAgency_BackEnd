@@ -29,18 +29,15 @@ exports.packageCategory = packageCategory;
 const destinViewData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = req.query.id;
-        console.log(id);
+        console.log(req.Token);
         const fetch = yield destinViewHelper_1.destinViewHelper.destinViewApi(id);
-        console.log(fetch);
-        const packageID = fetch === null || fetch === void 0 ? void 0 : fetch.packageCategory;
-        const activityID = fetch === null || fetch === void 0 ? void 0 : fetch.activity;
+        const packageID = yield fetch.packageCategory;
+        console.log(packageID);
+        const activityID = yield fetch.activity;
         const packageCategoryID = yield fetchID_1.packageIdfetch.packageApi(packageID);
         const activityDataID = yield fetchID_1.activityIdfetch.activityApi(activityID);
-        console.log(activityDataID);
         const packageCategory = packageCategoryID.packageCategory;
-        console.log(packageCategory);
         const activities = activityDataID.activtiy;
-        console.log(activities);
         res.json({ success: true, fetch, packageCategory, activities }).status(200);
     }
     catch (error) {
