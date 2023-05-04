@@ -6,7 +6,15 @@ interface IUser extends Document {
   email: string;
   phone:number;
   password: string;
-  profile:string
+  profile:string;
+  first:string;
+  last:string;
+  address:string;
+  idCard:{
+    number:string,
+    image:string
+  }
+  action:boolean
 
 }
 
@@ -29,6 +37,23 @@ const UserSchema: Schema = new Schema({
   },
   profile:{
     type: String
+  },
+  first:{
+    type:String,
+  },
+  last:{
+    type:String
+  },
+  address:{
+    type:String
+  },
+  idCard:{
+    number:String,
+    image:String
+  },
+  action:{
+    type:Boolean,
+    default:true
   }
 });
 

@@ -23,7 +23,6 @@ export const destinViewData: RequestHandler = async (req:RequestWithUser, res) =
   try {
     const id = req.query.id as string
 
-    console.log(req.Token);
     
     const fetch = await destinViewHelper.destinViewApi(id);
     
@@ -42,6 +41,7 @@ export const destinViewData: RequestHandler = async (req:RequestWithUser, res) =
     res.json({ success: true, fetch, packageCategory, activities }).status(200);
   } catch (error) {
     console.log(error);
+    res.json({ error: "not fsfs" }).status(401);
   }
 };
 export const fillterContorl : RequestHandler= async(req,res)=>{

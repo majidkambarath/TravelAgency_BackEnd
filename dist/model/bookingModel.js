@@ -23,45 +23,30 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-const UserSchema = new mongoose_1.Schema({
-    name: {
-        type: String,
-        required: true
+const bookingSchema = new mongoose_1.Schema({
+    userDetails: {
+        name: String,
+        address: String,
+        email: String,
+        phone: Number,
+        idCardNumber: String,
+        idCardPhoto: String
     },
-    email: {
-        type: String,
-        required: true,
-    },
-    phone: {
-        type: Number,
-        unique: true
-    },
-    password: {
-        type: String,
-    },
-    profile: {
-        type: String
-    },
-    first: {
-        type: String,
-    },
-    last: {
-        type: String
-    },
-    address: {
-        type: String
-    },
-    idCard: {
-        number: String,
-        image: String
-    },
-    action: {
+    ArrivedDate: { type: Date },
+    Participants: { type: Number },
+    ArrivedDay: { type: String },
+    BookingData: { type: Date },
+    BookingDay: { type: String },
+    ExtraService: [{ name: String, price: Number }],
+    SubTotal: { type: Number },
+    Title: { type: String },
+    Price: { type: Number },
+    priceCate: { type: String },
+    status: {
         type: Boolean,
         default: true
     }
 });
-// Create the user model
-const UserModel = mongoose_1.default.model('User', UserSchema);
-exports.UserModel = UserModel;
+const BookingModel = mongoose_1.default.model('Booking', bookingSchema);
+exports.default = BookingModel;

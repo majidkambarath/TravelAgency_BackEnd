@@ -15,10 +15,11 @@ export const JWT_Check = asyncHandler(async (req: RequestWithUser, res: Response
       const decoded: any = jwt.verify(token, process.env.JWT_SECRET as string);
       if (typeof decoded !== "string") {
         const user = await UserModel.findById(decoded.id);
+        const userID = user?._id
         if (!user) {
           res.status(401).json({ message: "Invalid token" });
         } else {
-          req.Token = user;
+          req.Token = userID;
           next();
         }
       }

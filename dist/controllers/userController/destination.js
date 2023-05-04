@@ -29,7 +29,6 @@ exports.packageCategory = packageCategory;
 const destinViewData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = req.query.id;
-        console.log(req.Token);
         const fetch = yield destinViewHelper_1.destinViewHelper.destinViewApi(id);
         const packageID = yield fetch.packageCategory;
         console.log(packageID);
@@ -42,6 +41,7 @@ const destinViewData = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
     catch (error) {
         console.log(error);
+        res.json({ error: "not fsfs" }).status(401);
     }
 });
 exports.destinViewData = destinViewData;

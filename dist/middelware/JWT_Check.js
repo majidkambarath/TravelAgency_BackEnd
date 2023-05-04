@@ -23,11 +23,12 @@ exports.JWT_Check = (0, express_async_handler_1.default)((req, res, next) => __a
             const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
             if (typeof decoded !== "string") {
                 const user = yield userModel_1.UserModel.findById(decoded.id);
+                const userID = user === null || user === void 0 ? void 0 : user._id;
                 if (!user) {
                     res.status(401).json({ message: "Invalid token" });
                 }
                 else {
-                    req.Token = user;
+                    req.Token = userID;
                     next();
                 }
             }
