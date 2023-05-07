@@ -27,23 +27,12 @@ export const bookingUserCollectionUpdate = async (data: any): Promise<any> => {
 
 export const bookingCollectionHelper = async (data: any): Promise<any> => {
   try {
-    const userData = await UserModel.findOne({ _id: data.userID });
-    const idCard = userData?.idCard.number;
-    const idCardImage = userData?.idCard.image;
     const bookingCollaction = new BookingModel({
-      userDetails: {
-        name: userData?.name,
-        email: userData?.email,
-        phone: userData?.phone,
-        address: userData?.address,
-        idCardNumber: idCard,
-        idCardPhoto: idCardImage,
-      },
+      userDetails: data.userID,
+      Destination:data.destinId,
       ArrivedDate: data.Arrived,
       Participants: data.Participants,
-      ArrivedDay: data.ArrivedDay,
       BookingData: data.BookingData,
-      BookingDay: data.BookingDay,
       ExtraService: data.ExtraService,
       SubTotal: data.SubTotal,
       Title: data.Title,
@@ -53,5 +42,8 @@ export const bookingCollectionHelper = async (data: any): Promise<any> => {
 
     await bookingCollaction.save();
     return bookingCollaction;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    
+  }
 };

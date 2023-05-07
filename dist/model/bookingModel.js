@@ -26,12 +26,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const bookingSchema = new mongoose_1.Schema({
     userDetails: {
-        name: String,
-        address: String,
-        email: String,
-        phone: Number,
-        idCardNumber: String,
-        idCardPhoto: String
+        type: mongoose_1.default.Types.ObjectId,
+        ref: 'User'
+    },
+    Destination: {
+        type: mongoose_1.default.Types.ObjectId,
+        ref: 'Destination'
     },
     ArrivedDate: { type: Date },
     Participants: { type: Number },
@@ -46,7 +46,11 @@ const bookingSchema = new mongoose_1.Schema({
     status: {
         type: Boolean,
         default: true
-    }
+    },
+    BookingStatus: {
+        type: String,
+        default: 'Success'
+    },
 });
 const BookingModel = mongoose_1.default.model('Booking', bookingSchema);
 exports.default = BookingModel;

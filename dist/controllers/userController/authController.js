@@ -12,9 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.authLoginApi = exports.otpVerifiyy = exports.authSignup = void 0;
+exports.userVerificationApi = exports.authLoginApi = exports.otpVerifiyy = exports.authSignup = void 0;
 const auth_schema_1 = require("../../validation/auth_schema");
+const userModel_1 = require("../../model/userModel");
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const authHelper_1 = require("../../helper/user/authHelper");
 const twilio_1 = require("../../config/twilio");
 const JWT_generator_1 = require("../../utils/JWT_generator");
@@ -103,3 +105,28 @@ const authLoginApi = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.authLoginApi = authLoginApi;
+const userVerificationApi = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const token = req.body.token;
+        if (!token) {
+            res.json({ user: false });
+        }
+        else {
+            const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
+            const userId = decoded.id;
+            const user = yield userModel_1.UserModel.findById(userId);
+            console.log(user);
+            if (user) {
+                res.status(200).json({ user: true });
+            }
+            else {
+                res.json({ user: false });
+            }
+        }
+    }
+    catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ error: error.message });
+    }
+});
+exports.userVerificationApi = userVerificationApi;

@@ -14,6 +14,7 @@ export const activtiyManage = async(req:Request,res:Response)=>{
 
 export const fetchingActivity :RequestHandler = async(req,res)=>{
       try {
+
          const fetch = await fetchingHelper.fetchingApi()
          res.json({success:true,fetch}).status(200)
       } catch (error) {

@@ -15,6 +15,6 @@ export const activityHelper = {
 export const fetchingHelper = {
     fetchingApi :async():Promise<string[]|any>=>{
             const fetchingData = await activityModel.find();
-            return fetchingData
+            return fetchingData;
     }
 }

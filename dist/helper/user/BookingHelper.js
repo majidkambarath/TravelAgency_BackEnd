@@ -41,23 +41,12 @@ const bookingUserCollectionUpdate = (data) => __awaiter(void 0, void 0, void 0, 
 exports.bookingUserCollectionUpdate = bookingUserCollectionUpdate;
 const bookingCollectionHelper = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const userData = yield userModel_1.UserModel.findOne({ _id: data.userID });
-        const idCard = userData === null || userData === void 0 ? void 0 : userData.idCard.number;
-        const idCardImage = userData === null || userData === void 0 ? void 0 : userData.idCard.image;
         const bookingCollaction = new bookingModel_1.default({
-            userDetails: {
-                name: userData === null || userData === void 0 ? void 0 : userData.name,
-                email: userData === null || userData === void 0 ? void 0 : userData.email,
-                phone: userData === null || userData === void 0 ? void 0 : userData.phone,
-                address: userData === null || userData === void 0 ? void 0 : userData.address,
-                idCardNumber: idCard,
-                idCardPhoto: idCardImage,
-            },
+            userDetails: data.userID,
+            Destination: data.destinId,
             ArrivedDate: data.Arrived,
             Participants: data.Participants,
-            ArrivedDay: data.ArrivedDay,
             BookingData: data.BookingData,
-            BookingDay: data.BookingDay,
             ExtraService: data.ExtraService,
             SubTotal: data.SubTotal,
             Title: data.Title,
@@ -67,6 +56,8 @@ const bookingCollectionHelper = (data) => __awaiter(void 0, void 0, void 0, func
         yield bookingCollaction.save();
         return bookingCollaction;
     }
-    catch (error) { }
+    catch (error) {
+        console.log(error);
+    }
 });
 exports.bookingCollectionHelper = bookingCollectionHelper;

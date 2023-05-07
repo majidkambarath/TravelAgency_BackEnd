@@ -1,14 +1,8 @@
-import mongoose, { Document, Model, Schema } from 'mongoose';
+import mongoose, { Document, Model, Schema , ObjectId } from 'mongoose';
 
  export interface Booking {
-    userDetails : {
-        name:string|undefined,
-        address:string|undefined,
-        email:string|undefined,
-        phone:number|undefined,
-        idCardNumber:string | undefined,
-        idCardPhoto:string |undefined
-    }
+    userDetails : ObjectId
+    Destination:ObjectId
     ArrivedDate: Date;
     Participants: number;
     ArrivedDay: string;
@@ -20,16 +14,17 @@ import mongoose, { Document, Model, Schema } from 'mongoose';
     Price: number;
     priceCate: string;
     status:boolean
+    BookingStatus:string
   }
 
   const bookingSchema = new Schema<Booking>({
     userDetails:{
-      name:String,
-      address:String,
-      email:String,
-      phone:Number,
-      idCardNumber:String,
-      idCardPhoto:String
+      type:mongoose.Types.ObjectId,
+      ref:'User'
+    },
+    Destination :{
+      type:mongoose.Types.ObjectId,
+      ref:'Destination'
     },
     ArrivedDate: { type: Date },
     Participants: { type: Number },
@@ -44,7 +39,11 @@ import mongoose, { Document, Model, Schema } from 'mongoose';
     status:{
         type:Boolean,
         default:true
-    }
+    },
+    BookingStatus:{
+      type:String,
+      default:'Success'
+  },
   });
 
 

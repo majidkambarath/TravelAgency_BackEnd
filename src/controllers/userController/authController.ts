@@ -1,10 +1,12 @@
 import { RequestHandler } from "express";
 import { signupSchema } from "../../validation/auth_schema";
-import { IUser } from "../../model/userModel";
+import { IUser, UserModel } from "../../model/userModel";
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 import {userCollection,authLoginHelper} from '../../helper/user/authHelper'
 import {sendVerificationToken,checkVerificationToken} from '../../config/twilio'
 import { createToken } from "../../utils/JWT_generator";
+
 const hashPassword = async(password:string)=>{
     try {
         const hash = await bcrypt.hash(password,10)
@@ -96,4 +98,34 @@ export const authLoginApi : RequestHandler = async(req,res)=>{
         console.log(error);
         
     }
+}
+
+export const userVerificationApi :RequestHandler = async(req,res)=>{
+    try {
+    
+        const token = req.body.token;
+
+        if(!token){
+            res.json({ user: false });
+            
+        }else{
+            const decoded :any = jwt.verify(token, process.env.JWT_SECRET as string);
+              const userId = decoded.id 
+              const user = await UserModel.findById(userId);
+               console.log(user);
+               
+              if (user) {
+                 res.status(200).json({ user: true });
+              }else{
+                res.json({ user: false });
+              } 
+        }
+        
+    
+       
+      } catch (error:any) {
+        console.log(error.message);
+        return res.status(500).json({ error: error.message });
+      }
+    
 }

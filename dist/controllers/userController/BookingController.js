@@ -77,9 +77,9 @@ const paymentSuccess = (req, res) => __awaiter(void 0, void 0, void 0, function*
             res.json({ message: "Transcation is not legit" }).status(400);
         }
         else {
-            const { Arrived, Participants, ArrivedDay, BookingData, BookingDay, ExtraService, SubTotal, Title, Price, priceCate, userID } = req.body;
+            const { Arrived, Participants, BookingData, ExtraService, SubTotal, Title, Price, priceCate, userID, destinId } = req.body;
             const data = {
-                Arrived, Participants, ArrivedDay, BookingData, BookingDay, ExtraService, SubTotal, Title, Price, priceCate, userID
+                Arrived, Participants, BookingData, ExtraService, SubTotal, Title, Price, priceCate, userID, destinId
             };
             const bookingCollection = yield (0, BookingHelper_1.bookingCollectionHelper)(data);
             res.status(200).json({
