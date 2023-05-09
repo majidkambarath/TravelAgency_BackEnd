@@ -4,6 +4,9 @@ import mongodb from "./config/connaction";
 import cors from "cors";
 import adminRouter from "./api_router/adminRouter/routerApi";
 import useRouter from './api_router/userRouter/routerApi'
+import chatRouter from './api_router/chatRouter/routerApi'
+import { io } from "./config/socket_io";
+import socketApi from "./utils/sockectApi";
 dotenv.config();
 
 const app = express();
@@ -21,7 +24,12 @@ mongodb();
 
 app.use('/',useRouter)
 app.use("/admin", adminRouter);
-app.listen(port, () => {
+app.use("/chat", chatRouter);
+
+const server = app.listen(port, () => {
   console.log("server running !!!!!");
   console.log(`http://localhost:2000`);
 });
+
+io.attach(server)
+socketApi()

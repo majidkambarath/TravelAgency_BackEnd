@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const chatController_1 = require("../../controllers/userController/chatController");
+const JWT_Check_1 = require("../../middelware/JWT_Check");
+const router = (0, express_1.Router)();
+router.post('/conversations', JWT_Check_1.JWT_Check, chatController_1.conversationsStore);
+router.get('/userLisit', chatController_1.chatUserLisit);
+router.get('/messages', chatController_1.fetchMessageDetails);
+exports.default = router;
