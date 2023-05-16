@@ -18,7 +18,8 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const userModel_1 = require("../model/userModel");
 exports.JWT_Check = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+        if (req.headers.authorization &&
+            req.headers.authorization.startsWith("Bearer")) {
             const token = req.headers.authorization.split(" ")[1];
             const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
             if (typeof decoded !== "string") {
@@ -28,8 +29,13 @@ exports.JWT_Check = (0, express_async_handler_1.default)((req, res, next) => __a
                     res.status(401).json({ message: "Invalid token" });
                 }
                 else {
-                    req.Token = userID;
-                    next();
+                    if (user.action === true) {
+                        req.Token = userID;
+                        next();
+                    }
+                    else {
+                        res.status(401).json({ message: "User is Blocked", action: true });
+                    }
                 }
             }
         }

@@ -58,8 +58,8 @@ const bookingDetailsShowsHelper = (BookingID) => __awaiter(void 0, void 0, void 
 exports.bookingDetailsShowsHelper = bookingDetailsShowsHelper;
 const bookingDetailsCancel = (BookingID) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield bookingModel_1.default.findOneAndUpdate({ _id: BookingID }, { $set: { BookingStatus: 'Cancelled' } }, { new: true });
-        return response;
+        const fetchDetails = yield bookingModel_1.default.findOneAndUpdate({ _id: BookingID }, { $set: { BookingStatus: 'Cancelled' } }, { new: true });
+        return fetchDetails;
     }
     catch (error) {
     }

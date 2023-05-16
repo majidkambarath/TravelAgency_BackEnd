@@ -9,6 +9,7 @@ const categoryManage_1 = require("../../controllers/adminController/categoryMana
 const destin_manage_1 = require("../../controllers/adminController/destin_manage");
 const AdminController_1 = require("../../controllers/adminController/AdminController");
 const uploadCloudinary_1 = __importDefault(require("../../utils/uploadCloudinary"));
+const bookingManage_1 = require("../../controllers/adminController/bookingManage");
 const router = (0, express_1.Router)();
 router.post("/category", uploadCloudinary_1.default.single('file'), categoryManage_1.category_manage);
 router.get("/getCategory", categoryManage_1.fetchingData);
@@ -24,4 +25,8 @@ router.get('/bookingCount', AdminController_1.bookingCountApi);
 router.get('/clientsCount', AdminController_1.ClientCountApi);
 router.get('/totalRevenueCount', AdminController_1.TotalRevenueCountApi);
 router.get('/getUser', AdminController_1.getUSerApi);
+router.get('/fetchBookingDate', AdminController_1.fetchBookingDate);
+router.get('/fetchAdminDashboardBookingCount', AdminController_1.fetchAdminDashBoardCount);
+router.get('/bookingMangement', bookingManage_1.bookingManageApi);
+router.patch('/userBlockingApi', AdminController_1.userBlockingApi);
 exports.default = router;

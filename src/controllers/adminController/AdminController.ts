@@ -1,9 +1,10 @@
 import { RequestHandler } from "express";
-import { AdminLoginHelper, fetchBookingCount, fetchTotalRevenueCount, fetchUserDetails } from "../../helper/admin/adminHome";
+import { AdminLoginHelper, adminDashboardBookingReport, fetchBookingCount, fetchBookingDateAndTotal, fetchClientsCount, fetchTotalRevenueCount, fetchUserDetails, userBlockORUnblockingHelper } from "../../helper/admin/adminHome";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { createToken } from "../../utils/JWT_generator";
 import adminModel from "../../model/adminModel";
+import { UserModel } from "../../model/userModel";
 export const AdminLogin :RequestHandler = async(req,res)=>{
     try {
         let {email,password} = req.body
@@ -73,7 +74,8 @@ export const bookingCountApi :RequestHandler = async(req,res)=>{
     try {
         const bookingCount = await fetchBookingCount()
         res.status(200).json({ sucess: true ,bookingCount});
-        
+         console.log(bookingCount);
+         
         
     } catch (error) {
         console.log(error);
@@ -83,7 +85,9 @@ export const bookingCountApi :RequestHandler = async(req,res)=>{
 
 export const ClientCountApi :RequestHandler = async(req,res)=>{
     try {
-        const ClientsCount = await fetchBookingCount()
+        const ClientsCount = await fetchClientsCount()
+        console.log(ClientsCount);
+        
         res.status(200).json({ sucess: true ,ClientsCount});
         
         
@@ -99,6 +103,7 @@ export const TotalRevenueCountApi :RequestHandler = async(req,res)=>{
         
         const totalRevenue = await fetchTotalRevenueCount()
         res.status(200).json({ sucess: true ,totalRevenue});
+        console.log(totalRevenue);
         
         
         
@@ -121,3 +126,40 @@ export const getUSerApi :RequestHandler = async(req,res)=>{
         
     }
 }
+
+
+export const fetchBookingDate : RequestHandler = async(req,res)=>{
+    try {
+           const fetch = await fetchBookingDateAndTotal()
+           res.status(200).json({ sucess: true ,fetch});
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
+export const fetchAdminDashBoardCount :RequestHandler = async(req,res)=>{
+    try {
+        const fetch = await adminDashboardBookingReport()
+        res.status(200).json({ sucess: true ,fetch});
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
+export const userBlockingApi :RequestHandler = async(req,res)=>{
+    try {
+        const id = req.query.id as string
+        const check = await userBlockORUnblockingHelper(id)
+        console.log(check);
+        const fetch = await UserModel.find()
+        res.status(200).json({ success: true ,check,fetch});
+        
+        
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }

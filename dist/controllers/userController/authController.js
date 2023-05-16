@@ -84,16 +84,21 @@ const authLoginApi = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         if (userData) {
             const encryptPassword = userData.password;
             const matchPassword = yield bcrypt_1.default.compare(password, encryptPassword);
-            if (matchPassword) {
-                const token = (0, JWT_generator_1.createToken)(userData._id);
-                res.status(200).json({
-                    success: true,
-                    token,
-                    userData
-                });
+            if (userData.action === true) {
+                if (matchPassword) {
+                    const token = (0, JWT_generator_1.createToken)(userData._id);
+                    res.status(200).json({
+                        success: true,
+                        token,
+                        userData
+                    });
+                }
+                else {
+                    res.status(200).json({ success: false });
+                }
             }
             else {
-                res.status(200).json({ success: false });
+                res.status(200).json({ action: true });
             }
         }
         else {
@@ -126,7 +131,7 @@ const userVerificationApi = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
     catch (error) {
         console.log(error.message);
-        return res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error.message, action: true });
     }
 });
 exports.userVerificationApi = userVerificationApi;

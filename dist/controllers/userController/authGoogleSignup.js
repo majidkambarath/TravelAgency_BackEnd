@@ -18,15 +18,15 @@ const userModel_1 = require("../../model/userModel");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const googleClient = new google_auth_library_1.OAuth2Client({
-    clientId: `${process.env.REACT_GOOGLE_CLIENTID}`,
-    clientSecret: `${process.env.REACT_GOOGLE_CLIENT_SECRET}`,
+    clientId: process.env.REACT_GOOGLE_CLIENTID,
+    clientSecret: process.env.REACT_GOOGLE_CLIENT_SECRET,
 });
 const authenticateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { token } = req.body;
         const ticket = yield googleClient.verifyIdToken({
             idToken: token,
-            audience: `${process.env.REACT_GOOGLE_CLIENTID}`,
+            audience: process.env.REACT_GOOGLE_CLIENTID,
         });
         const payload = ticket.getPayload();
         let user = yield userModel_1.UserModel.findOne({ email: payload === null || payload === void 0 ? void 0 : payload.email });
@@ -45,6 +45,7 @@ const authenticateUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
     catch (error) {
         console.log(error);
+        res.status(500).json({ error: 'An error occurred during authentication' });
     }
 });
 exports.authenticateUser = authenticateUser;

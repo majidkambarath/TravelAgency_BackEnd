@@ -8,6 +8,8 @@ import {
 import bcrypt from "bcrypt";
 import { UserModel } from "../../model/userModel";
 import { passwordChange } from "../../helper/user/passwordChange";
+import BookingModel from "../../model/bookingModel";
+import mongoose from "mongoose";
 interface RequestWithUser extends Request {
   Token?: any;
 }
@@ -89,12 +91,17 @@ export const bookingDetailsShow :RequestHandler = async(req:RequestWithUser,res)
     }
 }
 
-export const bookingCancel : RequestHandler = async(req:RequestWithUser,res)=>{
+export const bookingCancel : RequestHandler = async(req,res)=>{
     try {
         const BookingID = req.query.id as string
-      const bookingData =  await bookingDetailsCancel(BookingID)
+      
+        const {userId} = req.body
+        const id = new mongoose.Types.ObjectId(userId)
+        const fetchDetails =    await bookingDetailsCancel(BookingID)
+        const bookingData = await BookingModel.find({userDetails:id})
+     
 
-        res.json({ success: true , bookingData}).status(200);
+        res.json({ success: true ,bookingData }).status(200);
     } catch (error) {
         
     }

@@ -17,6 +17,8 @@ const profileUpdation_1 = require("../../helper/user/profileUpdation");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const userModel_1 = require("../../model/userModel");
 const passwordChange_1 = require("../../helper/user/passwordChange");
+const bookingModel_1 = __importDefault(require("../../model/bookingModel"));
+const mongoose_1 = __importDefault(require("mongoose"));
 const userProfileUpdate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.Token;
@@ -88,7 +90,10 @@ exports.bookingDetailsShow = bookingDetailsShow;
 const bookingCancel = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const BookingID = req.query.id;
-        const bookingData = yield (0, profileUpdation_1.bookingDetailsCancel)(BookingID);
+        const { userId } = req.body;
+        const id = new mongoose_1.default.Types.ObjectId(userId);
+        const fetchDetails = yield (0, profileUpdation_1.bookingDetailsCancel)(BookingID);
+        const bookingData = yield bookingModel_1.default.find({ userDetails: id });
         res.json({ success: true, bookingData }).status(200);
     }
     catch (error) {

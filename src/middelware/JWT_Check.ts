@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken";
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from "express";
 import { UserModel } from "../model/userModel";
 
 interface RequestWithUser extends Request {
@@ -8,25 +8,37 @@ interface RequestWithUser extends Request {
   Token?: any;
 }
 
-export const JWT_Check = asyncHandler(async (req: RequestWithUser, res: Response, next: NextFunction) => {
-  try {
-    if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
-      const token = req.headers.authorization.split(" ")[1];
-      const decoded: any = jwt.verify(token, process.env.JWT_SECRET as string);
-      if (typeof decoded !== "string") {
-        const user = await UserModel.findById(decoded.id);
-        const userID = user?._id
-        if (!user) {
-          res.status(401).json({ message: "Invalid token" });
-        } else {
-          req.Token = userID;
-          next();
+export const JWT_Check = asyncHandler(
+  async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      if (
+        req.headers.authorization &&
+        req.headers.authorization.startsWith("Bearer")
+      ) {
+        const token = req.headers.authorization.split(" ")[1];
+        const decoded: any = jwt.verify(
+          token,
+          process.env.JWT_SECRET as string
+        );
+        if (typeof decoded !== "string") {
+          const user = await UserModel.findById(decoded.id);
+          const userID = user?._id;
+          if (!user) {
+            res.status(401).json({ message: "Invalid token" });
+          } else {
+            if (user.action === true) {
+              req.Token = userID;
+              next();
+            } else {
+              res.status(401).json({ message: "User is Blocked" , action:true });
+            }
+          }
         }
+      } else {
+        res.status(401).json({ message: "No authorization" });
       }
-    } else {
-      res.status(401).json({ message: "No authorization" });
+    } catch (error) {
+      next(error);
     }
-  } catch (error) {
-    next(error);
   }
-});
+);

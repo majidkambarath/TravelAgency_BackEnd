@@ -79,15 +79,19 @@ export const authLoginApi : RequestHandler = async(req,res)=>{
                 password,
                 encryptPassword
             );
-            if(matchPassword){
-            const token = createToken(userData._id)
-                res.status(200).json({
-                     success: true,
-                     token,
-                    userData
-                    })
+            if(userData.action === true){
+                if(matchPassword){
+                const token = createToken(userData._id)
+                    res.status(200).json({
+                         success: true,
+                         token,
+                        userData
+                        })
+                }else{
+                    res.status(200).json({ success: false})
+                }
             }else{
-                res.status(200).json({ success: false})
+                res.status(200).json({ action: true})
             }
         }else{
             res.status(200).json({ action: false})
@@ -119,13 +123,10 @@ export const userVerificationApi :RequestHandler = async(req,res)=>{
               }else{
                 res.json({ user: false });
               } 
-        }
-        
-    
-       
+        }   
       } catch (error:any) {
         console.log(error.message);
-        return res.status(500).json({ error: error.message });
+         res.status(500).json({ error: error.message,action:true }); 
       }
     
 }

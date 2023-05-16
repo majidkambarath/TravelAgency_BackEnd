@@ -12,12 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUSerApi = exports.TotalRevenueCountApi = exports.ClientCountApi = exports.bookingCountApi = exports.AdminVerificationApi = exports.AdminLogin = void 0;
+exports.userBlockingApi = exports.fetchAdminDashBoardCount = exports.fetchBookingDate = exports.getUSerApi = exports.TotalRevenueCountApi = exports.ClientCountApi = exports.bookingCountApi = exports.AdminVerificationApi = exports.AdminLogin = void 0;
 const adminHome_1 = require("../../helper/admin/adminHome");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const JWT_generator_1 = require("../../utils/JWT_generator");
 const adminModel_1 = __importDefault(require("../../model/adminModel"));
+const userModel_1 = require("../../model/userModel");
 const AdminLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let { email, password } = req.body;
@@ -77,6 +78,7 @@ const bookingCountApi = (req, res) => __awaiter(void 0, void 0, void 0, function
     try {
         const bookingCount = yield (0, adminHome_1.fetchBookingCount)();
         res.status(200).json({ sucess: true, bookingCount });
+        console.log(bookingCount);
     }
     catch (error) {
         console.log(error);
@@ -85,7 +87,8 @@ const bookingCountApi = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.bookingCountApi = bookingCountApi;
 const ClientCountApi = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const ClientsCount = yield (0, adminHome_1.fetchBookingCount)();
+        const ClientsCount = yield (0, adminHome_1.fetchClientsCount)();
+        console.log(ClientsCount);
         res.status(200).json({ sucess: true, ClientsCount });
     }
     catch (error) {
@@ -97,6 +100,7 @@ const TotalRevenueCountApi = (req, res) => __awaiter(void 0, void 0, void 0, fun
     try {
         const totalRevenue = yield (0, adminHome_1.fetchTotalRevenueCount)();
         res.status(200).json({ sucess: true, totalRevenue });
+        console.log(totalRevenue);
     }
     catch (error) {
         console.log(error);
@@ -113,3 +117,36 @@ const getUSerApi = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.getUSerApi = getUSerApi;
+const fetchBookingDate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const fetch = yield (0, adminHome_1.fetchBookingDateAndTotal)();
+        res.status(200).json({ sucess: true, fetch });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.fetchBookingDate = fetchBookingDate;
+const fetchAdminDashBoardCount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const fetch = yield (0, adminHome_1.adminDashboardBookingReport)();
+        res.status(200).json({ sucess: true, fetch });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.fetchAdminDashBoardCount = fetchAdminDashBoardCount;
+const userBlockingApi = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.query.id;
+        const check = yield (0, adminHome_1.userBlockORUnblockingHelper)(id);
+        console.log(check);
+        const fetch = yield userModel_1.UserModel.find();
+        res.status(200).json({ success: true, check, fetch });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.userBlockingApi = userBlockingApi;

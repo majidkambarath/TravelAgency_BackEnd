@@ -36,8 +36,10 @@ export const bookingDetails = async(id:string):Promise<any>=>{
 
 export const bookingDetailsShowsHelper = async(BookingID:string):Promise<any>=>{
     try {
-         const response = await BookingModel.findOne({_id:BookingID})
-         return response
+        const response = await BookingModel.findOne({_id:BookingID})
+        
+        return response
+
     } catch (error) {
         
     }
@@ -45,8 +47,10 @@ export const bookingDetailsShowsHelper = async(BookingID:string):Promise<any>=>{
 
 export const bookingDetailsCancel = async(BookingID:string):Promise<any>=>{
     try {
-         const response = await BookingModel.findOneAndUpdate({_id:BookingID},{$set :{BookingStatus:'Cancelled'} } , {new: true})
-         return response
+       const fetchDetails =    await BookingModel.findOneAndUpdate({_id:BookingID},{$set :{BookingStatus:'Cancelled'} } , {new: true})
+        
+
+         return fetchDetails
     } catch (error) {
         
     }

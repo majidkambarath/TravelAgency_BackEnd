@@ -2,8 +2,9 @@ import { Router } from "express";
 import { activtiyManage, fetchingActivity } from "../../controllers/adminController/activtityManage";
 import { category_manage,fetchingData,} from "../../controllers/adminController/categoryManage";
 import { add_destina,fetchDestin,edit_Collection,updateCollection } from "../../controllers/adminController/destin_manage";
-import { AdminLogin,AdminVerificationApi,bookingCountApi,ClientCountApi,TotalRevenueCountApi,getUSerApi} from "../../controllers/adminController/AdminController";
+import { AdminLogin,AdminVerificationApi,bookingCountApi,ClientCountApi,userBlockingApi,TotalRevenueCountApi,getUSerApi,fetchBookingDate,fetchAdminDashBoardCount} from "../../controllers/adminController/AdminController";
 import uploadCloudinary from "../../utils/uploadCloudinary";
+import { bookingManageApi } from "../../controllers/adminController/bookingManage";
 const router = Router();
 
 router.post("/category", uploadCloudinary.single('file'), category_manage);
@@ -20,4 +21,8 @@ router.get('/bookingCount',bookingCountApi)
 router.get('/clientsCount',ClientCountApi)
 router.get('/totalRevenueCount',TotalRevenueCountApi)
 router.get('/getUser',getUSerApi)
+router.get('/fetchBookingDate',fetchBookingDate)
+router.get('/fetchAdminDashboardBookingCount',fetchAdminDashBoardCount)
+router.get('/bookingMangement',bookingManageApi)
+router.patch('/userBlockingApi',userBlockingApi)
 export default router;
