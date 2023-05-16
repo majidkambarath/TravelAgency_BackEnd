@@ -23,9 +23,9 @@ app.use(cors({
 //database connecting
 mongodb();
 
-app.use('/',useRouter)
-app.use("/admin", adminRouter);
-app.use("/chat", chatRouter);
+app.use('/api/',useRouter)
+app.use("/api/admin", adminRouter);
+app.use("/api/chat", chatRouter);
 
 const server = app.listen(port, () => {
   console.log("server running !!!!!");
