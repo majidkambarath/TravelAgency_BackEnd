@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //cors connecting
 app.use(cors({
-    origin:["http://travio.online"],
+    origin:["https://travio.online"],
     methods:["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
 }))

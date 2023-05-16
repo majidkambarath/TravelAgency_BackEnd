@@ -19,15 +19,15 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 //cors connecting
 app.use((0, cors_1.default)({
-    origin: ["http://localhost:3000"],
+    origin: ["https://travio.online"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
 }));
 //database connecting
 (0, connaction_1.default)();
-app.use('/', routerApi_2.default);
-app.use("/admin", routerApi_1.default);
-app.use("/chat", routerApi_3.default);
+app.use('/api/', routerApi_2.default);
+app.use("/api/admin", routerApi_1.default);
+app.use("/api/chat", routerApi_3.default);
 const server = app.listen(port, () => {
     console.log("server running !!!!!");
     console.log(`http://localhost:2000`);
