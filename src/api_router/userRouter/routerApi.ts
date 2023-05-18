@@ -6,6 +6,7 @@ import {userDetailsPatch,paymentProcessing,paymentSuccess} from '../../controlle
 import {userProfileUpdate,userPasswordChange,bookingDetailsFetch,bookingDetailsShow,bookingCancel} from '../../controllers/userController/ProfileController'
 import { JWT_Check } from "../../middelware/JWT_Check";
 import uploadCloudinary from "../../utils/uploadCloudinary";
+import { fetchDestinDetails,postReviewController ,patchTheReviewCollection,DeleteTheReviewCollection, FetchReviewCollection} from "../../controllers/userController/reviewController";
 const router = Router();
 
 router.patch('/package_cate',packageCategory)
@@ -26,5 +27,12 @@ router.patch('/userPasswordChange',JWT_Check,userPasswordChange)
 router.get('/getBooking',JWT_Check,bookingDetailsFetch)
 router.get('/bookingDetails',JWT_Check,bookingDetailsShow)
 router.patch('/bookingCancel',bookingCancel)
+
+//review 
+router.get('/destinDetails',JWT_Check,fetchDestinDetails)
+router.post('/add_Review',JWT_Check,postReviewController)
+router.patch('/updateReview',patchTheReviewCollection)
+router.delete('/DeleteReview',DeleteTheReviewCollection)
+router.get('/fetchReview',FetchReviewCollection)
 export default router;
  

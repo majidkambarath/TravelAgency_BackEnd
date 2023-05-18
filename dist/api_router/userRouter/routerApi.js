@@ -11,6 +11,7 @@ const BookingController_1 = require("../../controllers/userController/BookingCon
 const ProfileController_1 = require("../../controllers/userController/ProfileController");
 const JWT_Check_1 = require("../../middelware/JWT_Check");
 const uploadCloudinary_1 = __importDefault(require("../../utils/uploadCloudinary"));
+const reviewController_1 = require("../../controllers/userController/reviewController");
 const router = (0, express_1.Router)();
 router.patch('/package_cate', destination_1.packageCategory);
 router.get('/destinationView', JWT_Check_1.JWT_Check, destination_1.destinViewData);
@@ -30,4 +31,10 @@ router.patch('/userPasswordChange', JWT_Check_1.JWT_Check, ProfileController_1.u
 router.get('/getBooking', JWT_Check_1.JWT_Check, ProfileController_1.bookingDetailsFetch);
 router.get('/bookingDetails', JWT_Check_1.JWT_Check, ProfileController_1.bookingDetailsShow);
 router.patch('/bookingCancel', ProfileController_1.bookingCancel);
+//review 
+router.get('/destinDetails', JWT_Check_1.JWT_Check, reviewController_1.fetchDestinDetails);
+router.post('/add_Review', JWT_Check_1.JWT_Check, reviewController_1.postReviewController);
+router.patch('/updateReview', reviewController_1.patchTheReviewCollection);
+router.delete('/DeleteReview', reviewController_1.DeleteTheReviewCollection);
+router.get('/fetchReview', reviewController_1.FetchReviewCollection);
 exports.default = router;

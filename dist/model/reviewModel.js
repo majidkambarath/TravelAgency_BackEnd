@@ -24,37 +24,37 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const bookingSchema = new mongoose_1.Schema({
-    userDetails: {
-        type: mongoose_1.default.Types.ObjectId,
-        ref: 'User'
-    },
-    Destination: {
+const reviewSchema = new mongoose_1.Schema({
+    DestinationId: {
         type: mongoose_1.default.Types.ObjectId,
         ref: 'Destination'
     },
-    ReviewId: {
+    UserId: {
         type: mongoose_1.default.Types.ObjectId,
-        ref: 'Review'
+        ref: 'User'
     },
-    ArrivedDate: { type: Date },
-    Participants: { type: Number },
-    ArrivedDay: { type: String },
-    BookingData: { type: Date },
-    BookingDay: { type: String },
-    ExtraService: [{ name: String, price: Number }],
-    SubTotal: { type: Number },
-    Title: { type: String },
-    Price: { type: Number },
-    priceCate: { type: String },
-    status: {
-        type: Boolean,
-        default: true
+    rating: {
+        serviceRate: {
+            type: Number,
+            required: true
+        },
+        valueMoney: {
+            type: Number,
+            required: true
+        },
+        communication: {
+            type: Number,
+            required: true
+        },
+        planing: {
+            type: Number,
+            required: true
+        }
     },
-    BookingStatus: {
+    textarea: {
         type: String,
-        default: 'Success'
-    },
+        required: true
+    }
 });
-const BookingModel = mongoose_1.default.model('Booking', bookingSchema);
-exports.default = BookingModel;
+const Review = mongoose_1.default.model('Review', reviewSchema);
+exports.default = Review;

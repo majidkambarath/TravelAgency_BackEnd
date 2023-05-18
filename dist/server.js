@@ -19,7 +19,7 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 //cors connecting
 app.use((0, cors_1.default)({
-    origin: ["https://travio.online"],
+    origin: ["https://travio.online", "http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
 }));

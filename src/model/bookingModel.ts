@@ -3,6 +3,7 @@ import mongoose, { Document, Model, Schema , ObjectId } from 'mongoose';
  export interface Booking {
     userDetails : ObjectId
     Destination:ObjectId
+    ReviewId : ObjectId
     ArrivedDate: Date;
     Participants: number;
     ArrivedDay: string;
@@ -25,6 +26,10 @@ import mongoose, { Document, Model, Schema , ObjectId } from 'mongoose';
     Destination :{
       type:mongoose.Types.ObjectId,
       ref:'Destination'
+    },
+    ReviewId :{
+      type:mongoose.Types.ObjectId,
+      ref:'Review'
     },
     ArrivedDate: { type: Date },
     Participants: { type: Number },

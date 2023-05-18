@@ -2,7 +2,7 @@ import { Server } from "socket.io";
 
 export const io = new Server( {
     cors: {
-        origin: process.env.FRONTEND_URL as string,
+        origin: 'https://travio.online',
         methods: ["GET", "POST"],
       },
       
