@@ -1,6 +1,7 @@
 import { RequestHandler ,Request} from "express";
 import { DeleteTheReview, FetchTheReview, destinfetchHelper, postReviewData, updateTheReview } from "../../helper/user/reviewHelper";
 import Review from "../../model/reviewModel";
+import BookingModel from "../../model/bookingModel";
 interface RequestWithUser extends Request {
     Token?: any;
   }
@@ -25,7 +26,12 @@ export const postReviewController :RequestHandler = async(req:RequestWithUser,re
         const {serviceRate,valueMoney,communication,planing} = rating
         const data = {id,userId,textarea, serviceRate, valueMoney, communication, planing }
       const review =  await postReviewData(data)
-      console.log(review);
+       const reviewId = review._id
+       const updateBookingCollection = await BookingModel.findByIdAndUpdate(
+        {Destination:id},
+        {$set: {ReviewId:reviewId}}
+        )
+        console.log(updateBookingCollection);
       
         // const fetch = await Review.find({UserId:userId})
        

@@ -8,9 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FetchReviewCollection = exports.DeleteTheReviewCollection = exports.patchTheReviewCollection = exports.postReviewController = exports.fetchDestinDetails = void 0;
 const reviewHelper_1 = require("../../helper/user/reviewHelper");
+const bookingModel_1 = __importDefault(require("../../model/bookingModel"));
 const fetchDestinDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.Token;
@@ -30,7 +34,9 @@ const postReviewController = (req, res) => __awaiter(void 0, void 0, void 0, fun
         const { serviceRate, valueMoney, communication, planing } = rating;
         const data = { id, userId, textarea, serviceRate, valueMoney, communication, planing };
         const review = yield (0, reviewHelper_1.postReviewData)(data);
-        console.log(review);
+        const reviewId = review._id;
+        const updateBookingCollection = yield bookingModel_1.default.findByIdAndUpdate({ Destination: id }, { $set: { ReviewId: reviewId } });
+        console.log(updateBookingCollection);
         // const fetch = await Review.find({UserId:userId})
         res.json({ success: true }).status(200);
     }

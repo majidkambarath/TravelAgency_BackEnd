@@ -43,9 +43,6 @@ const postReviewData = (data) => __awaiter(void 0, void 0, void 0, function* () 
             textarea
         });
         yield reviewCollection.save();
-        const reviewId = reviewCollection._id;
-        const updateBookingCollection = yield bookingModel_1.default.updateOne({ Destination: destinId }, { $set: { ReviewId: reviewId } });
-        console.log(updateBookingCollection);
         return reviewCollection;
     }
     catch (error) {

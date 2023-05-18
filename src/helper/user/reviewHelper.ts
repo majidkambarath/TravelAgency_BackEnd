@@ -29,14 +29,6 @@ export const postReviewData = async(data:any):Promise<any>=>{
             textarea
         })
         await reviewCollection.save()
-       const reviewId = reviewCollection._id
-
-       const updateBookingCollection = await BookingModel.updateOne(
-        {Destination:destinId},
-        {$set: {ReviewId:reviewId}}
-        )
-        console.log(updateBookingCollection);
-        
         return reviewCollection
         
 
