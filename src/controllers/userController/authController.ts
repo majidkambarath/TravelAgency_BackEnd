@@ -126,7 +126,7 @@ export const userVerificationApi :RequestHandler = async(req,res)=>{
         }   
       } catch (error:any) {
         console.log(error.message);
-         res.status(500).json({ error: error.message,action:true }); 
+         res.status(200).json({ error: error.message,action:true }); 
       }
     
 }

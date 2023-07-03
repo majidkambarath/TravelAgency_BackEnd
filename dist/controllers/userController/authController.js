@@ -131,7 +131,7 @@ const userVerificationApi = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
     catch (error) {
         console.log(error.message);
-        res.status(500).json({ error: error.message, action: true });
+        res.status(200).json({ error: error.message, action: true });
     }
 });
 exports.userVerificationApi = userVerificationApi;
